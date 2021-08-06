@@ -1,5 +1,8 @@
 package com.devsuperior.movieflix.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +26,7 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private AuthService authService;
-	
-	
+
 	@Transactional(readOnly = true)
 	public UserDTO getLoggedUser() {
 		User user = authService.authenticated();
@@ -43,7 +45,12 @@ public class UserService implements UserDetailsService {
 		logger.info("User found: " + username);
 		return user;
 	}
-	
-	
+
+	@Transactional(readOnly = true)
+	public List<UserDTO> findAll() {
+		List<User> list = repository.findAll();
+		return list.stream().map(x -> new UserDTO(x, x.getReviews())).collect(Collectors.toList());
+
+	}
 
 }
