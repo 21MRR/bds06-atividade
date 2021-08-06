@@ -20,6 +20,7 @@ public class GenreResource {
 	private GenreService service;
 	
 	
+	@GetMapping
 	public ResponseEntity<List<GenreDTO>>findAll(){
 		List<GenreDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);

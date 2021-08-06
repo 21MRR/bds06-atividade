@@ -16,7 +16,7 @@ public class UserResource {
 	@Autowired
 	private UserService service;
 	
-	@GetMapping(value = "/profile")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserDTO> getLoggedUser() {
 		UserDTO dto = service.getLoggedUser();
 
